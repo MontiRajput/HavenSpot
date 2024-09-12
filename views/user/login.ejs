@@ -1,0 +1,39 @@
+<%layout("/layout/boilerplate")%>
+
+<div class="login row">
+  <div class="col-2 mt-3">
+    <i class="fa-solid fa-mountain-city"></i>
+  </div>
+  <div class="col-8 mt-3">
+    <form aciton="/login" method="POST" class="needs-validation" novalidate>
+      <br />
+      <div class="username mb-3">
+        <label for="user" class="form-label">Username</label>
+        <input
+          id="user"
+          name="username"
+          placeholder="Enter username"
+          type="text"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="row">
+        <div class="password col-6 mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            id="password"
+            name="password"
+            placeholder="Enter password"
+            type="password"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col-4 div-s">
+          <button class="btn btn-s">Login</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<% layout("/layout/boilerplate") %>
+
+
+  <form id="filters" action="/listings/filter" method="POST">
+<button class="filter btn" name="filter" value="Farms">
+    <i class="fa-solid fa-tractor"></i>
+  <p>Farms</p>
+</button>
+<button class="filter btn" name="filter" value="Treehouses">
+  <i class="fa-solid fa-tree"></i>
+  <p>Treehouses</p>
+</button>
+<button class="filter btn" name="filter" value="Mountainside">
+  <i class="fa-solid fa-mountain-sun"></i>
+<p>Mountainside</p>
+</button>
+<button class="filter btn" name="filter" value="Roomes">
+  <i class="fa-solid fa-bed"></i>
+<p>Roomes</p>
+</button>
+<button class="filter btn" name="filter" value="Trending">
+  <i class="fa-solid fa-house-fire"></i>
+<p>Trending</p>
+</button>
+<button class="filter btn" name="filter" value="Beachfront">
+  <i class="fa-solid fa-umbrella-beach"></i>
+<p>Beachfront</p>
+</button>
+<button class="filter btn" name="filter" value="Camping">
+  <i class="fa-solid fa-campground"></i>
+<p>Camping</p>
+</button>
+<button class="filter btn" name="filter" value="Domes">
+  <i class="fa-solid fa-tents"></i>
+<p>Domes</p>
+</button>
+<button class="filter btn" name="filter" value="Historical">
+  <i class="fa-brands fa-fort-awesome"></i>
+<p>Historical</p>
+</button>
+<button class="filter btn" name="filter" value="Airhomes">
+  <i class="fa-solid fa-cable-car"></i>
+<p>Airhomes</p>
+</button>
+<button class="filter btn" name="filter" value="Hotel">
+  <i class="fa-solid fa-hotel"></i>
+<p>Hotel</p>
+</button>
+<button class="filter btn" name="filter" value="Tinyhomes">
+  <i class="fa-solid fa-house-user"></i>
+<p>Tinyhomes</p>
+</button> 
+</form>
+
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-2">
+    <%for(let listing of allListings){%> 
+ <a  class="card-a" href="<%=listing._id%>">
+  <div class="card col" >
+    <img src="<%=listing.image.url%>" class="card-img-top" alt="Spot-image" style="height: 17rem;" />
+    <div class="card-img-overlay">
+    
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+       <b><div class="title"><%=listing.title %></div></b>
+       <div class="price">&#8377; <%=listing.price.toLocaleString("en-IN") %> /night</div>
+      </p>
+    </div>
+  </div>
+    </a>
+    <%}%>
+  </div>

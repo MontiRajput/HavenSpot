@@ -1,0 +1,108 @@
+<% layout("/layout/boilerplate") %>
+
+<h4 class="heading">Create new Spot :</h4>
+<div class="row create">
+  <div class="col-md-8 offset-2">
+    <form
+      method="POST"
+      action="/listings"
+      class="needs-validation"
+      novalidate
+      enctype="multipart/form-data"
+    >
+      <div class="title mb-2">
+        <label for="title" class="form-label">Title</label>
+        <input
+          id="title"
+          name="listing[title]"
+          placeholder="Enter title"
+          type="text"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">Invalid title</div>
+      </div>
+      <div class="description mb-2">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          name="listing[description]"
+          placeholder="Enter description"
+          class="form-control"
+          required
+        ></textarea>
+        <div class="invalid-feedback">Invalid description</div>
+      </div>
+      <div class="row">
+        <div class="image col-md-8 mb-2">
+          <label for="image" class="form-label">Image</label>
+          <input
+            id="image"
+            name="listing[image]"
+            type="file"
+            class="form-control"
+          />
+        </div>
+        <div class="category col-md-4 mb-2">
+          <label for="category" class="form-label">Category</label>
+          <select id="category" name="listing[category]" class="form-control">
+            <option value="Mountainside">Mountainside</option>
+            <option value="Beachfront">Beachfront</option>
+            <option value="Camping">Camping</option>
+            <option value="Domes">Domes</option>
+            <option value="Airhomes">Airhomes</option>
+            <option value="Tinyhomes">Tinyhomes</option>
+            <option value="Hotel">Hotel</option>
+            <option value="Roomes">Room</option>
+            <option value="Treehouses">TreeHouse</option>
+            <option value="Historical">Historical</option>
+            <option value="Farms">Farm</option>
+            <option value="Trending">Trending</option>
+            <option value="Caves">Cave</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="price mb-2 col-md-4">
+          <label for="price" class="form-label">Price</label>
+          <input
+            id="price"
+            name="listing[price]"
+            placeholder="Enter price"
+            type="number"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Add amount</div>
+        </div>
+        <div class="location mb-2 col-md-8">
+          <label for="location" class="form-label">Location</label>
+          <input
+            id="location"
+            name="listing[location]"
+            placeholder="Enter location"
+            type="text"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Invalid location</div>
+        </div>
+      </div>
+      <div class="country mb-2">
+        <label for="country" class="form-label">Country</label>
+        <input
+          id="country"
+          name="listing[country]"
+          placeholder="Enter country"
+          type="text"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">Invalid country</div>
+      </div>
+      <br />
+      <button class="btn add-btn">Add</button>
+      <br /><br />
+    </form>
+  </div>
+</div>

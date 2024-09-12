@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-md bg-body-light sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings"
+      ><i class="fa-solid fa-mountain-city"></i> <b>HavenSpot</b></a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav ms-auto text-end">
+        <li class="nav-item">
+          <a class="nav-link" href="/listings">Explore</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/listings/new">Create your Haven</a>
+        </li>
+        <% if(!currUser){ %>
+        <li class="nav-item">
+          <a class="nav-link enter" href="/signup">SignUp</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">LogIn</a>
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link enter" href="/logout">LogOut</a>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
