@@ -17,7 +17,7 @@ const flash = require("connect-flash"); //for alerts
 const passport = require("passport"); //for login and signup
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-// const mongodb_url="mongodb://127.0.0.1:27017/wanderlust";
+// const mongodb_url = "mongodb://127.0.0.1:27017/wanderlust";
 const dbURL = process.env.ATLASDB_URL;
 async function main() {
   await mongoose.connect(dbURL);
