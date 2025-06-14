@@ -94,3 +94,13 @@ app.use((err, req, res, next) => {
 app.listen(3000, () => {
   console.log("I am listning on port 3000");
 });
+
+const path = require("path");
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, "/public")));
+
+// Handle React routing, return all requests to React app
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/public/index.html"));
+});
