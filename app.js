@@ -20,7 +20,7 @@ const User = require("./models/user.js");
 const mongodb_url = "mongodb://127.0.0.1:27017/wanderlust";
 const dbURL = process.env.ATLASDB_URL;
 async function main() {
-  await mongoose.connect(mongodb_url);
+  await mongoose.connect(dbURL);
 }
 main()
   .then((res) => {
@@ -76,6 +76,7 @@ app.use((req, res, next) => {
   res.locals.currUser = req.user;
   next();
 });
+
 app.use("/listings", listingRoute);
 app.use("/listings/:id/reviews", reviewRoute);
 app.use("/", userRoute);
