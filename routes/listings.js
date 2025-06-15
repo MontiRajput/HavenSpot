@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+
 const wrapAsync = require("../utils/wrapAsync.js");
 const listingController = require("../controllers/listing.js");
 const multer = require("multer");
@@ -14,6 +15,7 @@ const ExpressError = require("../utils/ExpressError.js");
 
 router
   .route("/")
+  .get(wrapAsync(listingController.index))
   .post(
     isLoggedIn,
     validateListing,

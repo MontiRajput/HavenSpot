@@ -2,7 +2,6 @@ if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 }
 const express = require("express");
-const router = express.Router();
 const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
@@ -20,8 +19,6 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const mongodb_url = "mongodb://127.0.0.1:27017/wanderlust";
 const dbURL = process.env.ATLASDB_URL;
-const wrapAsync = require("./utils/wrapAsync.js");
-const listingController = require("./controllers/listing.js");
 async function main() {
   await mongoose.connect(dbURL);
 }
@@ -79,7 +76,7 @@ app.use((req, res, next) => {
   res.locals.currUser = req.user;
   next();
 });
-router.route("/").get(wrapAsync(listingController.index));
+
 app.use("/listings", listingRoute);
 app.use("/listings/:id/reviews", reviewRoute);
 app.use("/", userRoute);
