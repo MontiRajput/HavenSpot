@@ -1,0 +1,90 @@
+Haven Spot End-to-End Architecture Explanation
+
+Project Overview
+• What problem does this project solve?
+This project reduces the time and effort required to search for travel destinations. Instead of browsing multiple websites, users can simply select the type of place (beaches, mountains, historical sites, etc.) they want to visit and instantly get a filtered list of relevant options.
+They can then view key details like price, location, and ratings in one place, making the decision process faster and easier.
+
+• Who is the user?
+The primary users are travelers who want to explore new places but need guidance in selecting the most suitable destination.
+
+• What tech stack was used?
+The frontend was built using HTML, CSS, and JavaScript, with Bootstrap for styling, Font Awesome for icons, and Google Fonts for typography.
+On the backend, I used Node.js and Express.js.
+For database management, I used MongoDB.
+Images are stored using Cloudinary, and Passport-Local-Mongoose was implemented for user authentication
+
+.• What are the main features?
+•	Explore Section: View a list of various travel destinations.
+•	Create a Haven: Users can add their own travel place listings.
+•	Edit & Delete Functionality: Users can update or remove their own listings anytime.
+•	Review Section: Users can share feedback and rate places.
+•	Filter Options: Allows users to quickly find destinations based on their preferences, saving time and improving the selection process.
+•	User Authentication: Secure Sign Up and Login functionality using Passport-Local-Mongoose to manage user accounts.
+
+• Is it static or dynamic?
+This project is a dynamic full-stack web application built using Node.js, Express, and MongoDB. The content is generated dynamically based on user input and stored database information, allowing features like authentication, CRUD operations, and reviews.
+
+
+
+Authentication Flow
+Signup Flow: When a new user registers, the application collects the username, email, and password through a form. The password is securely hashed using Passport-Local-Mongoose before being stored in the MongoDB database. After successful registration, the user is automatically logged in and redirected to the main listing page (Explore).
+The system ensures that duplicate usernames are not allowed and appropriate error messages are displayed if validation fails.
+Login Flow: When a user attempts to log in, the entered credentials are verified using Passport.js authentication middleware. If the credentials are valid, a session is created and the user gains access to protected routes such as creating, editing, or deleting listings. If authentication fails, an error message is displayed and access is denied.
+
+CRUD Operations
+Listing: 
+•	Create → POST /listings
+•	Read all Listings → GET /listings
+•	Edit → PUT /listings/:id/edit
+•	Read Single Listing → GET /listings/:id
+•	Delete → DELETE /listings/:id
+•	Authorization: Only owner can edit/delete
+Review:
+•	Create → POST /listings/:id/reviews
+•	Delete → DELETE /listings/:id/reviews
+User:
+•	Login → POST /login
+•	Signup → POST /signup 
+
+Database Design
+1️ User Schema
+Although only the email field is explicitly defined, the passport-local-mongoose plugin automatically adds the following fields to the schema:
+•	username – Unique identifier for login
+•	hash – Hashed version of the user’s password
+•	salt – Salt value used during password hashing
+This ensures that passwords are not stored in plain text and follow secure authentication practices.
+
+
+2 Listing Schema
+•	title – Name of the property (required field)
+•	description – Details about the property
+•	image – Stores image URL and filename
+•	price, location, country – Basic property information
+•	owner – References the User who created the listing
+•	reviews – Stores references to multiple Review documents
+•	category – Restricted to predefined values using enum
+
+
+3 Review Schema	
+•	comment – Text feedback given by the user
+•	rating – Numeric rating between 1 and 5
+•	createAt – Automatically stores the review creation date
+•	author – References the User who created the review
+The min and max validation ensures that ratings stay within a valid range.
+
+
+Error Handling
+The application uses a custom ExpressError class to handle errors in a structured way. This class allows attaching a status code and message to errors for better control over responses.
+Undefined routes are handled by generating a 404 error, and all errors are passed to centralized error-handling middleware. This ensures the server does not crash and users receive appropriate error messages.
+ 
+
+Deployment
+The application is fully deployed on Render, where both the server and application services are hosted in a production environment. The MongoDB database is managed using MongoDB Atlas for secure and scalable data storage.
+The project is accessible through a custom domain:
+https://havenspot.montirajput.space/
+Environment variables are configured on Render to securely manage sensitive information such as:
+•	ATLASDB_URL
+•	CLOUD_API_KEY, CLOUD_API_SECRET, CLOUD_NAME
+This setup ensures secure configuration management, proper routing, authentication handling, and stable performance in a live production environment.
+

@@ -6,6 +6,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  googleId: {
+    type: String,
+  },
+  avatar: {
+    type: String,
+  },
 });
 
 userSchema.plugin(passportLocalMongoose); // Passport-Local Mongoose will add a username, hash and salt field to store the username, the hashed password and the salt value.

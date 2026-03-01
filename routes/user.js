@@ -25,4 +25,20 @@ router
   );
 
 router.get("/logout", userController.getLogout);
+
+// Redirect to Google
+router.get("/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+// Google Callback
+router.get("/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/login",
+    failureFlash: true
+  }),
+  (req, res) => {
+    res.redirect("/"); // or wherever you want
+  }
+);
 module.exports = router;

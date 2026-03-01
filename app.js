@@ -16,9 +16,12 @@ const session = require("express-session"); //user session id for diffrent brows
 const flash = require("connect-flash"); //for alerts
 const passport = require("passport"); //for login and signup
 const LocalStrategy = require("passport-local");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("./models/user.js");
 const mongodb_url = "mongodb://127.0.0.1:27017/wanderlust";
 const dbURL = process.env.ATLASDB_URL;
+
+
 async function main() {
   await mongoose.connect(dbURL);
 }
@@ -69,6 +72,48 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser()); //to save  user session data
 passport.deserializeUser(User.deserializeUser()); //to delete user session data
 
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: "/auth/google/callback"
+},
+async (accessToken, refreshToken, profile, done) => {
+  try {
+    const email = profile.emails[0].value;
+    // 1️⃣ Check if user already exists with this email
+    let existingUser = await User.findOne({ email: email });
+console.log(profile);
+    if (existingUser) {
+
+       // Always ensure googleId is saved
+  if (!existingUser.googleId) {
+    existingUser.googleId = profile.id;
+  }
+
+  // Always ensure avatar is saved
+  if (!existingUser.avatar && profile.photos && profile.photos.length > 0) {
+    existingUser.avatar = profile.photos[0].value;
+  }
+      return done(null, existingUser);
+    }
+
+    // 2️⃣ If not exist, create new user
+    const newUser = new User({
+      email: email,
+      username: email,
+      googleId: profile.id,
+      avatar: profile.photos[0].value
+    });
+
+    await User.register(newUser, Math.random().toString(36));
+
+    done(null, newUser);
+
+  } catch (err) {
+    done(err, null);
+  }
+}));
+
 //flashes
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
@@ -97,7 +142,4 @@ app.listen(3000, () => {
   console.log("I am listning on port 3000");
 });
 
-// Handle React routing, return all requests to React app
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public/index.html"));
-});
+

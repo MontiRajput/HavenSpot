@@ -30,7 +30,11 @@
         <li class="nav-item">
           <a class="nav-link enter" href="/logout">LogOut</a>
         </li>
-        <% } %>
+        <% if(currUser.avatar){ console.log(currUser.avatar); %>
+         <li class="nav-item">
+          <img src="<%= currUser.avatar %>" style="width: 40px; border-radius: 100%; margin-left: 20px;">
+        </li>
+        <% }} %>
       </ul>
     </div>
   </div>
